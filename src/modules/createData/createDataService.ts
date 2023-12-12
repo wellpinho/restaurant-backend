@@ -3,6 +3,11 @@ import { prismaClient } from "../../prismaClient";
 
 export const createDataService = async () => {
     try {
+        await prismaClient.items.deleteMany();
+        await prismaClient.restaurant.deleteMany();
+        await prismaClient.location.deleteMany();
+        await prismaClient.cuisine.deleteMany();
+
         const locations = await prismaClient.location.findMany();
         const cuisines = await prismaClient.cuisine.findMany();
 
@@ -1023,7 +1028,7 @@ export const createDataService = async () => {
                 },
             ],
         });
-        return 'data created'
+        return 'Congratulations, your data has been successfully entered into Supabase!'
     } catch (error) {
         return error
     }
