@@ -1,9 +1,8 @@
 import { Request, Response, Router } from "express";
+import { created } from "./modules/createData/create.routes";
 
 const routes = Router();
 
-routes.get("/", (req: Request, res: Response) => {
-    return res.status(200).json({ message: "Welcome" });
-});
+routes.use(created);
 
 export { routes };
