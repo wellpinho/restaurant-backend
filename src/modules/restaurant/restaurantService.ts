@@ -16,10 +16,29 @@ const listRestaurantsService = async () => {
     return restaurants;
 }
 
-const showRestaurantService = async (slug: string) => {
+interface IShowRestaurant {
+    id: number,
+    name: string,
+    images: string[],
+    description: string,
+    slug: string,
+}
+
+const showRestaurantService = async (slug: string): Promise<IShowRestaurant> => {
     const restaurant = await prismaClient.restaurant.findUnique({
-        where: { slug }
+        where: { slug },
+        select: {
+            id: true,
+            name: true,
+            images: true,
+            description: true,
+            slug: true,
+        }
     });
+
+    if (!restaurant) {
+        throw new Error('Restaurant not found!')
+    }
 
     return restaurant;
 }
