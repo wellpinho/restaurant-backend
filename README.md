@@ -24,6 +24,9 @@ project created to support the frontend of the nextjs course
 
 Access the app with postman or insominia `http://localhost:5000` or `http://localhost:4000`
 
+## Routes
+http://localhost:5000/restaurants
+
 Access the supabase and check if your tables are created with the data.
 
 ## 📄 Licençe
