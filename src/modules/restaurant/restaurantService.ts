@@ -24,7 +24,7 @@ interface IShowRestaurant {
     slug: string,
 }
 
-const showRestaurantService = async (slug: string): Promise<IShowRestaurant> => {
+const showRestaurantService = async (slug: string) => {
     const restaurant = await prismaClient.restaurant.findUnique({
         where: { slug },
         select: {
@@ -36,11 +36,22 @@ const showRestaurantService = async (slug: string): Promise<IShowRestaurant> => 
         }
     });
 
-    if (!restaurant) {
-        throw new Error('Restaurant not found!')
-    }
-
     return restaurant;
 }
 
-export { listRestaurantsService, showRestaurantService }
+const menuRestaurantService = async (slug: string) => {
+    const restaurant = await prismaClient.restaurant.findUnique({
+        where: { slug },
+        select: {
+            items: true,
+        }
+    });
+
+    if (!restaurant) {
+        throw new Error('Restaurant menu not found!')
+    }
+
+    return restaurant.items;
+}
+
+export { listRestaurantsService, showRestaurantService, menuRestaurantService }
