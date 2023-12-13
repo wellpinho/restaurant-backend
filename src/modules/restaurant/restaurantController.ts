@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { listRestaurantsService } from "./restaurantService";
+import { listRestaurantsService, showRestaurantService } from "./restaurantService";
 
 const listRestaurantsController = async (req: Request, res: Response) => {
     const restaurants = await listRestaurantsService();
@@ -7,4 +7,11 @@ const listRestaurantsController = async (req: Request, res: Response) => {
     return res.status(200).json(restaurants)
 }
 
-export { listRestaurantsController }
+const showRestauranteController = async (req: Request, res: Response) => {
+    const { slug } = req.params;
+    const restaurant = await showRestaurantService(slug)
+
+    return res.status(200).json(restaurant);
+}
+
+export { listRestaurantsController, showRestauranteController }
