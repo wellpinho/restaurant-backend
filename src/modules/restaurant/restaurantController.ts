@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import { listRestaurantsService, menuRestaurantService, showRestaurantService } from "./restaurantService";
+import { Request, RequestHandler, Response } from "express";
+import { listRestaurantsService, menuRestaurantService, searchRestaurantService, showRestaurantService } from "./restaurantService";
 
 const listRestaurantsController = async (req: Request, res: Response) => {
     const restaurants = await listRestaurantsService();
@@ -21,4 +21,20 @@ const menuRestauranteController = async (req: Request, res: Response) => {
     return res.status(200).json(restaurant);
 }
 
-export { listRestaurantsController, showRestauranteController, menuRestauranteController }
+type ReqQuery = {
+    city: string;
+}
+
+const searchRestauranteController: RequestHandler<ReqQuery> = async (req: Request, res: Response) => {
+    const { city } = req.query as ReqQuery;
+    const restaurants = await searchRestaurantService(city)
+
+    return res.status(200).json(restaurants);
+}
+
+export {
+    listRestaurantsController,
+    showRestauranteController,
+    menuRestauranteController,
+    searchRestauranteController
+}

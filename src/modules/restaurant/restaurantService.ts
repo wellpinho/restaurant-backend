@@ -54,4 +54,26 @@ const menuRestaurantService = async (slug: string) => {
     return restaurant.items;
 }
 
-export { listRestaurantsService, showRestaurantService, menuRestaurantService }
+const searchRestaurantService = async (city: string) => {
+    try {
+        const restaurant = await prismaClient.restaurant.findMany({
+            where: {
+                slug: {
+                    endsWith: city
+                },
+            },
+        });
+
+        return restaurant;
+    } catch (error) {
+        return error
+    }
+
+}
+
+export {
+    listRestaurantsService,
+    showRestaurantService,
+    menuRestaurantService,
+    searchRestaurantService
+}
