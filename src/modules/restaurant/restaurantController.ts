@@ -1,10 +1,22 @@
 import { Request, RequestHandler, Response } from "express";
-import { listRestaurantsService, menuRestaurantService, searchRestaurantService, showRestaurantService } from "./restaurantService";
+import { listCuisineService, listLocationsService, listRestaurantsService, menuRestaurantService, searchRestaurantService, showRestaurantService } from "./restaurantService";
 
 const listRestaurantsController = async (req: Request, res: Response) => {
     const restaurants = await listRestaurantsService();
 
     return res.status(200).json(restaurants)
+}
+
+const listLocationsController = async (req: Request, res: Response) => {
+    const locations = await listLocationsService();
+
+    return res.status(200).json(locations)
+}
+
+const listCuisineController = async (req: Request, res: Response) => {
+    const cuisines = await listCuisineService();
+
+    return res.status(200).json(cuisines)
 }
 
 const showRestauranteController = async (req: Request, res: Response) => {
@@ -34,6 +46,8 @@ const searchRestauranteController: RequestHandler<ReqQuery> = async (req: Reques
 
 export {
     listRestaurantsController,
+    listLocationsController,
+    listCuisineController,
     showRestauranteController,
     menuRestauranteController,
     searchRestauranteController

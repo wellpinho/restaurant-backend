@@ -16,6 +16,28 @@ const listRestaurantsService = async () => {
     return restaurants;
 }
 
+const listLocationsService = async () => {
+    const locations = await prismaClient.location.findMany({
+        select: {
+            id: true,
+            name: true,
+        }
+    });
+
+    return locations;
+}
+
+const listCuisineService = async () => {
+    const locations = await prismaClient.cuisine.findMany({
+        select: {
+            id: true,
+            name: true,
+        }
+    });
+
+    return locations;
+}
+
 interface IShowRestaurant {
     id: number,
     name: string,
@@ -87,6 +109,8 @@ const searchRestaurantService = async (city: string) => {
 
 export {
     listRestaurantsService,
+    listLocationsService,
+    listCuisineService,
     showRestaurantService,
     menuRestaurantService,
     searchRestaurantService
