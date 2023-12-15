@@ -57,11 +57,25 @@ const menuRestaurantService = async (slug: string) => {
 const searchRestaurantService = async (city: string) => {
     try {
         const restaurant = await prismaClient.restaurant.findMany({
+            // skip: 0,
+            // take: 4,
             where: {
                 slug: {
-                    endsWith: city
+                    endsWith: city.toLowerCase(),
                 },
             },
+            select: {
+                id: true,
+                name: true,
+                main_image: true,
+                price: true,
+                cuisine: true,
+                location: true,
+                slug: true,
+            },
+            orderBy: {
+                name: 'asc'
+            }
         });
 
         return restaurant;
